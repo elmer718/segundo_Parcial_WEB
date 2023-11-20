@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.edu.ufps.crud.dao.BillDao;
+import co.edu.ufps.crud.dao.UsuarioDAO;
+import co.edu.ufps.crud.model.Bill;
+
 
 
 /**
@@ -19,7 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/")
 public class ProductoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ProductoDAO productoDAO;
+	private UsuarioDAO userDao;
+	private BillDao billDao;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -30,7 +35,8 @@ public class ProductoServlet extends HttpServlet {
     }
     
     public void init() {
-    	productoDAO = new ProductoDAO();
+    	this.userDao = new UsuarioDAO();
+    	this.billDao = new BillDao();
     }
 
 	/**
@@ -80,17 +86,15 @@ public class ProductoServlet extends HttpServlet {
 	
 	private void index(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			List < Producto > listProd = productoDAO.selectAll();
-			request.setAttribute("listProd", listProd);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("html/index.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		    dispatcher.forward(request, response);
 	}
 	
 	private void list(HttpServletRequest request, HttpServletResponse response)
 		    throws SQLException, IOException, ServletException {
-		        List < Producto > listProd = productoDAO.selectAll();
-		        request.setAttribute("listProd", listProd);
-		        RequestDispatcher dispatcher = request.getRequestDispatcher("html/list_productos.jsp");
+		        List <Bill> listBill = billDao.selectAll();
+		        request.setAttribute("listBill", listBill);
+		        RequestDispatcher dispatcher = request.getRequestDispatcher("html/movimientos.jsp");
 		        dispatcher.forward(request, response);
 	}
 	
@@ -144,10 +148,10 @@ public class ProductoServlet extends HttpServlet {
 
 	}
 	
-	private void deleteProducto(HttpServletRequest request, HttpServletResponse response)
+	private void deleteBill(HttpServletRequest request, HttpServletResponse response)
 		    throws SQLException, IOException {
 		        int id = Integer.parseInt(request.getParameter("id"));
-		        productoDAO.delete(id);
+		        billDao.delete(id);
 		        response.sendRedirect("list");
 
 	}
