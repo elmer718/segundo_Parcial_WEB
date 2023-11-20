@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.edu.ufps.crud.dao.ProductoDAO;
-import co.edu.ufps.crud.model.Categoria;
-import co.edu.ufps.crud.model.Marca;
-import co.edu.ufps.crud.model.Producto;
+
 
 /**
  * Servlet implementation class ProductoServlet
