@@ -14,6 +14,7 @@ public class UsuarioDAO {
 	
 	private static final String INSERT_USER_SQL = "INSERT INTO users (username, pass, email) VALUES (?, ?, ?);";
 	private static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE id = ?;";
+	private static final String SELECT_USER_BY_NAME = "SELECT * FROM users WHERE username = ?;";
 	
 	public UsuarioDAO() {
 		this.conexion = ConexionMySQL.getConexion();
@@ -44,6 +45,31 @@ public class UsuarioDAO {
 
 			while (rs.next()) {
 			String username = rs.getString("username");
+			String pass = rs.getString("pass");
+			String email = rs.getString("email");
+			
+
+			usuario = new Usuario(id, username, email, pass);
+			}
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return usuario;
+	}
+	
+	public Usuario selectName(String username) throws SQLException {
+		Usuario usuario = new Usuario();
+
+		try {
+			PreparedStatement preparedStatement = conexion.setPreparedStatement(SELECT_USER_BY_NAME);
+			preparedStatement.setString(1, username);
+			
+			ResultSet rs = conexion.query();
+
+			while (rs.next()) {
+			int id = rs.getInt("id");
 			String pass = rs.getString("pass");
 			String email = rs.getString("email");
 			

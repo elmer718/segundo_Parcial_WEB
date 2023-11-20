@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,19 +18,22 @@
       <div class="container mt-4">
         <div class="row justify-content-center">
           <div class="col-md-6">
-            <form>
-              <div class="mb-3">
-                <label for="usuario" class="form-label">Usuario</label>
-                <input type="text" class="form-control" id="usuario" name="usuario">
-              </div>
-              <div class="mb-3">
-                <label for="contrasena" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="pass" name="pass">
-              </div>
-              <button type="button" class="btn btn-primary" onclick="location.href='movimientos.html'">Ingresar</button>
-              <br>
-              <br>
-              <a href="#" class="link-secondary">Registrar usuario</a>
+            <form action="login" method="post">
+              <c:if test="${datoError!=''}">
+	          	<label><c:out value="-${datoError}"/></label>
+	          </c:if>
+	              <div class="mb-3">
+	                <label for="usuario" class="form-label">Usuario</label>
+	                <input type="text" class="form-control" id="user" name="user">
+	              </div>
+	              <div class="mb-3">
+	                <label for="contrasena" class="form-label">Contraseña</label>
+	                <input type="password" class="form-control" id="pass" name="pass">
+	              </div>
+	              <button type="submit" class="btn btn-primary">Ingresar</button>
+	              <br>
+	              <br>
+	              <a href="#" class="link-secondary">Registrar usuario</a>
             </form>
           </div>
         </div>
